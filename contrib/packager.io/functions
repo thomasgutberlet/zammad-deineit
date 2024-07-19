@@ -279,7 +279,7 @@ function enforce_redis () {
     if ${INIT_CMD} restart ${REDIS_SERVICE_NAME}; then
       echo "# Redis server is running."
       return 0
-  else
+    else
       echo -e "\nSomething went wrong. Please check any error output above and fix the issues."
       echo "Then run the package installation again."
       exit 1
