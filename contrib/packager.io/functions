@@ -234,12 +234,13 @@ function enforce_redis () {
     echo "# REDIS_URL variable set to ${REDIS_URL}."
     REDIS_URL_HOST=$(echo ${REDIS_URL} | awk -F[/:] '{print $4}')
     REDIS_URL_PORT=$(echo ${REDIS_URL} | awk -F[/:] '{print $5}')
+    echo "# Performing connection check."
     if echo 2> /dev/null > /dev/tcp/$REDIS_URL_HOST/$REDIS_URL_PORT; then
-      echo "# ${REDIS_URL} is reachable."
+      echo "# Connection check successful."
       return 0
     else
-      echo "# ${REDIS_URL} not reachable."
-      echo "ERROR - No redis server found!"
+      echo "# Connection check unsuccessful."
+      echo "ERROR - No redis server found."
       echo "Please install Redis following the instructions at https://redis.io/docs/getting-started/ or set the REDIS_URL environment variable with the following command."
       echo -e "zammad config:set REDIS_URL=redis://your.redis.server:6379\n"
       echo "Please fix these issues, then run the package installation again."
