@@ -255,7 +255,7 @@ function enforce_redis () {
   if [ "${OS}" == "DEBIAN" ]; then
       REDIS_SERVICE_NAME="redis-server"
   elif [ "${OS}" == "SUSE" ]; then
-      REDIS_PID=$(ss -tlpn | grep ':6379' | awk '{print $6}' | grep -oP -m1 '\d+' | head -n1)
+      REDIS_PID=$(lsof -i :6379 -t)
       if [ -z "${REDIS_PID}" ]; then
         echo -e "ERROR - SUSE Linux detected but no running redis-instance listening on port 6379 or REDIS_URL set.\n"
         echo "SUSE Linux uses a systemd template for its redis package."
